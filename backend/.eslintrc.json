@@ -5,14 +5,15 @@
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "graphql",
     "airbnb-base",
     "airbnb-typescript/base",
     "plugin:prettier/recommended",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "import"],
+  "plugins": ["@typescript-eslint", "prettier", "@graphql-eslint", "import"],
   "rules": {
     "prettier/prettier": "error",
     "no-console": "off",
@@ -24,9 +25,13 @@
       }
     ]
   },
-  "settings": {
-    "react": {
-      "version": "detect"
+  "overrides": [
+    {
+      "files": ["*.graphql"],
+      "parser": "@graphql-eslint/eslint-plugin",
+      "rules": {
+        "@graphql-eslint/require-id-when-available": "error"
+      }
     }
-  }
+  ]
 }
