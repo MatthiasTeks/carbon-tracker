@@ -19,10 +19,14 @@ services:
       - 4001:4001
     volumes:
       - ./backend/src:/app/src
+    env_file:
+      - ./global.env
 
   frontend:
     build: frontend
     ports:
       - 3000:3000
     volumes:
-      - ./frontend/src:/app/src
+      - ./frontend/src:/app/src 
+    env_file:
+      - ./global.env

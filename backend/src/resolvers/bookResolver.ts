@@ -6,7 +6,7 @@ import { Like } from "typeorm";
 class BookResolver {
     @Query(() => [Book])
     async tags(@Arg("title", { nullable: true }) title: string) {
-        console.log('reload ?')
+        console.log('cest gagné youpi ?')
         return await Book.find({
             where: { title: title ? Like(`%${title}%`) : undefined },
             order: { id: "desc" },
