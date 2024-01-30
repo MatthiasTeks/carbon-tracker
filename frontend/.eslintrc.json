@@ -34,5 +34,6 @@
     "react": {
       "version": "detect"
     }
-  }
+  },
+  "ignorePatterns": ["src/gql/*.ts", "next.config.js"]
 }

@@ -5,7 +5,7 @@ import { buildSchema } from 'type-graphql';
 import BookResolver from './resolvers/bookResolver';
 import db from './db';
 
-const port = 4001;
+const port = parseInt(process.env.BACKEND_PORT || '4001', 10);
 
 buildSchema({
   resolvers: [BookResolver],

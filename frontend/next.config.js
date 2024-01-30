@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+require('dotenv').config(); 
+
 const nextConfig = {
   reactStrictMode: true,
   webpack: (config, context) => {
@@ -7,7 +9,7 @@ const nextConfig = {
       aggregateTimeout: 300
     }
     return config
-  }
+  },
 }
 
 module.exports = nextConfig
