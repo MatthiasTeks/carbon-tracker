@@ -10,7 +10,11 @@
     "husky-install": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx}": [
+    "frontend/src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "backend/src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "prettier --write"
     ]
