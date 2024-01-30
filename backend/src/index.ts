@@ -13,5 +13,5 @@ buildSchema({
   await db.initialize();
   const server = new ApolloServer({ schema });
   const { url } = await startStandaloneServer(server, { listen: { port } });
-  console.info(`graphql server listening  on ${url}`);
+  console.info(`graphql server listeninggg  on ${url}`);
 });

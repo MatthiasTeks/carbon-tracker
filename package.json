@@ -7,7 +7,8 @@
   },
   "scripts": {
     "precommit": "lint-staged",
-    "husky-install": "husky install"
+    "husky-install": "husky install",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "frontend/src/**/*.{js,jsx,ts,tsx}": [
@@ -24,7 +25,8 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.56.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0"
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4"
   }
 }
