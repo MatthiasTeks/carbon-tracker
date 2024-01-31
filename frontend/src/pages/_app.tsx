@@ -1,9 +1,10 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { useMemo } from 'react';
 
-export default function App({ Component, pageProps }: AppProps) {
+export function App({ Component, pageProps }: AppProps) {
   console.info('hello', process.env.NEXT_PUBLIC_GRAPHQL_SERVER_URL);
 
   const client = useMemo(
@@ -21,3 +22,6 @@ export default function App({ Component, pageProps }: AppProps) {
     </ApolloProvider>
   );
 }
+
+// Disabling SSR
+export default dynamic(() => Promise.resolve(App), { ssr: false });

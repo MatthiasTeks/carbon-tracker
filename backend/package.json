@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "build": "tsc",
-    "start:prod": "node build/index.js",
+    "start:prod": "node dist/index.js",
     "resetDB": "ts-node-dev src/resetDb.ts",
     "lint": "echo '----- Checking Backend...' && npx prettier --debug-check . && eslint --ext .ts . && echo '----- Done!'",
     "fix": "prettier --write . && eslint --fix --ext .ts ."

@@ -22,6 +22,8 @@ services:
 
   frontend:
     build:
+      args:
+        NEXT_PUBLIC_GRAPHQL_SERVER_URL: http://localhost:4001/
       context: frontend
       dockerfile: Dockerfile.production
     ports:

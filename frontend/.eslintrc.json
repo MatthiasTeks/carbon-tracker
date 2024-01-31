@@ -28,12 +28,13 @@
     ],
     "linebreak-style": 0,
     "class-methods-use-this": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "import/extensions": "off"
   },
   "settings": {
     "react": {
       "version": "detect"
     }
   },
-  "ignorePatterns": ["src/gql/*.ts", "next.config.js"]
+  "ignorePatterns": ["src/graphql/generated/*.ts", "next.config.js", "tailwind.config.js"]
 }
