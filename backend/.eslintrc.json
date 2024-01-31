@@ -5,17 +5,16 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./frontend/tsconfig.json"
+    "project": "./backend/tsconfig.json"
   },
   "extends": [
     "airbnb-base",
     "airbnb-typescript/base",
     "plugin:prettier/recommended",
     "plugin:import/typescript",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "import"],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
   "rules": {
     "prettier/prettier": ["error", {"endOfLine": "auto"}],
     "no-console": "off",
@@ -27,14 +26,6 @@
       }
     ],
     "linebreak-style": 0,
-    "class-methods-use-this": "off",
-    "react/react-in-jsx-scope": "off",
-    "import/extensions": "off"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "ignorePatterns": ["src/graphql/generated/*.ts", "next.config.js", "tailwind.config.js"]
+    "class-methods-use-this": "off"
+  }
 }
