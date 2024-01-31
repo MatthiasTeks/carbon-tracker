@@ -6,22 +6,23 @@
   "scripts": {
     "start": "ts-node-dev src/index.ts",
     "build": "tsc",
-    "start:prod": "node build/index.js",
-    "resetDB": "ts-node-dev src/resetDb.ts"
+    "start:prod": "node dist/index.js",
+    "resetDB": "ts-node-dev src/resetDb.ts",
+    "lint": "echo '----- Checking Backend...' && npx prettier --debug-check . && eslint --ext .ts . && echo '----- Done!'",
+    "fix": "prettier --write . && eslint --fix --ext .ts ."
   },
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@apollo/server": "^4.10.0",
     "class-validator": "^0.14.1",
-    "cors": "^2.8.5",    
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "graphql": "^16.8.1",
-    "pg": "^8.11.3",
     "graphql-scalars": "^1.22.4",
-    "sqlite3": "^5.1.6",
+    "pg": "^8.11.3",
     "reflect-metadata": "^0.2.1",
+    "sqlite3": "^5.1.6",
     "ts-node-dev": "^2.0.0",
     "type-graphql": "^2.0.0-beta.6",
     "typeorm": "^0.3.17"
@@ -29,6 +30,17 @@
   "devDependencies": {
     "@types/cors": "^2.8.14",
     "@types/node": "^20.11.10",
+    "@typescript-eslint/eslint-plugin": "^5.59.9",
+    "@typescript-eslint/parser": "^5.62.0",
+    "dotenv": "^16.4.1",
+    "eslint": "^8.32.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "prettier": "^3.2.4",
     "typescript": "^5.3.3"
   }
 }

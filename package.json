@@ -1,0 +1,32 @@
+{
+  "name": "carbon-tracker",
+  "version": "0.0.1",
+  "description": "",
+  "config": {
+    "cli": "npm"
+  },
+  "scripts": {
+    "precommit": "lint-staged",
+    "husky-install": "husky install",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "frontend/src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "backend/src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4"
+  }
+}
