@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "echo '----- Checking Frontend...' && npx prettier --debug-check . && eslint --ext .tsx,.ts . && echo '----- Done!'",
     "preview": "vite preview",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.8.10",
