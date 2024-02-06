@@ -1,0 +1,13 @@
+query Login($infos: InputLogin!) {
+    login(infos: $infos) {
+        success
+        message
+    }
+}
+
+query Logout {
+  logout {
+    message
+    success
+  }
+}
