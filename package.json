@@ -6,6 +6,8 @@
     "cli": "npm"
   },
   "scripts": {
+    "dev": "docker compose up --build",
+    "prod": "docker compose -f docker-compose.production.yml up --build",
     "precommit": "lint-staged",
     "husky-install": "husky install",
     "prepare": "husky install"
