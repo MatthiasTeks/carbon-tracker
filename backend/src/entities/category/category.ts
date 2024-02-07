@@ -6,7 +6,6 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-  Timestamp,
 } from 'typeorm';
 import ActivityEntry from '../activity-entry/activity-entry';
 
@@ -19,12 +18,13 @@ export default class Category extends BaseEntity {
 
   @CreateDateColumn()
   @Field()
-  createdAt: Timestamp;
+  createdAt: Date;
 
   @Column()
   @Field()
   name: string;
 
+  @Field(() => ActivityEntry)
   @OneToMany(() => ActivityEntry, (activityEntry) => activityEntry.category)
   activityEntries: ActivityEntry[];
 }

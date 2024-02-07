@@ -29,6 +29,14 @@ export type Book = {
   title: Scalars['String'];
 };
 
+export type Donation = {
+  __typename?: 'Donation';
+  amount: Scalars['Float'];
+  createdAt: Scalars['DateTimeISO'];
+  id: Scalars['Int'];
+  user: Array<User>;
+};
+
 export type InputLogin = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -54,6 +62,18 @@ export type MutationRegisterArgs = {
   infos: InputRegister;
 };
 
+export type Post = {
+  __typename?: 'Post';
+  content: Scalars['String'];
+  createdAt: Scalars['DateTimeISO'];
+  id: Scalars['Int'];
+  likers: Array<User>;
+  title: Scalars['String'];
+  updatedAt: Scalars['DateTimeISO'];
+  user: Array<User>;
+  viewOnPost: Scalars['Float'];
+};
+
 export type Query = {
   __typename?: 'Query';
   login: Message;
@@ -77,12 +97,16 @@ export type QueryUserByEmailArgs = {
 
 export type User = {
   __typename?: 'User';
+  activityEntries: Array<User>;
   createdAt?: Maybe<Scalars['DateTimeISO']>;
+  donations: Array<Donation>;
   email: Scalars['String'];
   id: Scalars['String'];
+  likedPosts: Array<Post>;
   name?: Maybe<Scalars['String']>;
   password: Scalars['String'];
   picture?: Maybe<Scalars['String']>;
+  posts: Array<Post>;
   updatedAt?: Maybe<Scalars['DateTimeISO']>;
 };
 

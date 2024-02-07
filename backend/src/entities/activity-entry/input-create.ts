@@ -4,10 +4,10 @@ import ObjectId from '../../utils';
 @InputType()
 export default class InputCreate {
   @Field()
-  name: string | null;
+  name?: string;
 
   @Field()
-  input: number | null;
+  input?: number;
 
   @Field(() => ObjectId)
   category: ObjectId;

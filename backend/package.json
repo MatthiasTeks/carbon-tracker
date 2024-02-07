@@ -7,7 +7,7 @@
     "start": "ts-node-dev --exit-child --watch src --poll src/index.ts",
     "build": "tsc",
     "start:prod": "node dist/index.js",
-    "resetDB": "ts-node-dev src/resetDb.ts",
+    "resetDB": "ts-node-dev src/utils/reset-db.ts",
     "lint": "echo '----- Checking Backend...' && npx prettier --debug-check . && eslint --ext .ts . && echo '----- Done!'",
     "fix": "prettier --write . && eslint --fix --ext .ts ."
   },
