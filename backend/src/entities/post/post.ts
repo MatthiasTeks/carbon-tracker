@@ -48,6 +48,6 @@ export default class Post extends BaseEntity {
   @Field(() => [Like])
   likesOnPost: Like[];
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.posts)
   user: User;
 }

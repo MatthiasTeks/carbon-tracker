@@ -36,9 +36,9 @@ export default class ActivityEntry extends BaseEntity {
   @Field()
   input: string | null;
 
-  @ManyToOne(() => User, (user) => user.id)
+  @ManyToOne(() => User, (user) => user.activityEntries)
   user: User;
 
-  @ManyToOne(() => Category, (cat) => cat.id)
+  @ManyToOne(() => Category, (cat) => cat.activityEntries)
   category: Category;
 }
