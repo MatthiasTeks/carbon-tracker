@@ -5,7 +5,9 @@ import getSchema from './src/schema';
 
 async function clearDB() {
   const entities = db.entityMetadatas;
-  const tableNames = entities.map((entity) => entity.tableName).join(', ');
+  const tableNames = entities
+    .map((entity) => `"${entity.tableName}"`)
+    .join(', ');
 
   await db.query(`TRUNCATE ${tableNames} RESTART IDENTITY CASCADE;`);
 }
