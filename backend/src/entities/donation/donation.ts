@@ -12,7 +12,7 @@ import User from '../user/user';
 
 @Entity()
 @ObjectType()
-export default class Donations extends BaseEntity {
+export default class Donation extends BaseEntity {
   @PrimaryGeneratedColumn()
   @Field(() => Int)
   id: number;
