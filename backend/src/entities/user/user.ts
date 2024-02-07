@@ -5,10 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  OneToMany,
 } from 'typeorm';
 import { Length, IsEmail } from 'class-validator';
 import { ObjectType, Field } from 'type-graphql';
 import * as argon2 from 'argon2';
+import Donation from '../donation/donation';
+import ActivityEntry from '../activity-entry/activity-entry';
+import Post from '../post/post';
 
 @Entity()
 @ObjectType()
@@ -57,4 +61,13 @@ export default class User {
   @Column({ nullable: true })
   @Field({ nullable: true })
   picture?: string;
+
+  @OneToMany(() => Donation, (donation) => donation.user)
+  donations: Donation[];
+
+  @OneToMany(() => ActivityEntry, (activityEntry) => activityEntry.user)
+  activityEntries: ActivityEntry[];
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }
