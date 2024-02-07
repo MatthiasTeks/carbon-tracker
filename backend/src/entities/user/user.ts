@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   BeforeInsert,
   OneToMany,
+  ManyToMany,
 } from 'typeorm';
 import { Length, IsEmail } from 'class-validator';
 import { ObjectType, Field } from 'type-graphql';
@@ -62,12 +63,19 @@ export default class User {
   @Field({ nullable: true })
   picture?: string;
 
+  @Field(() => [Donation])
   @OneToMany(() => Donation, (donation) => donation.user)
   donations: Donation[];
 
+  @Field(() => [User])
   @OneToMany(() => ActivityEntry, (activityEntry) => activityEntry.user)
   activityEntries: ActivityEntry[];
 
+  @Field(() => [Post])
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @ManyToMany(() => Post, (post) => post.likers)
+  @Field(() => [Post])
+  likedPosts: Post[];
 }

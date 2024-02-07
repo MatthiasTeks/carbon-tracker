@@ -13,6 +13,7 @@ import BookResolver from './resolvers/bookResolver';
 import UserResolver from './resolvers/user/user-resolver';
 import User from './entities/user/user';
 import customAuthChecker from './lib/auth-checker';
+import UserService from './services/user-service';
 
 export interface MyContext {
   req: express.Request;
@@ -58,11 +59,8 @@ async function main() {
               token,
               new TextEncoder().encode(process.env.SECRET_KEY),
             );
-            const userRepository = db.getRepository(User);
             const { email } = verify.payload;
-            user = await userRepository.findOne({
-              where: { email },
-            });
+            user = await UserService.readByMail(email);
           } catch (err) {
             console.error(err);
           }
