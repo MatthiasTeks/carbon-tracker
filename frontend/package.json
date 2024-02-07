@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "echo '----- Checking Frontend...' && npx prettier --debug-check . && eslint --ext .tsx,.ts . && echo '----- Done!'",
     "preview": "vite preview",
-    "codegen": "graphql-codegen --config codegen.yml",
+    "codegen": "graphql-codegen --config codegen.yml --watch",
     "test": "jest --watch"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "@graphql-codegen/typescript": "3.0.2",
     "@graphql-codegen/typescript-operations": "3.0.2",
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
+    "@parcel/watcher": "^2.3.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
