@@ -26,6 +26,9 @@
       }
     ],
     "linebreak-style": 0,
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-cycle": "off",
+    "no-promise-executor-return": "off"
   }
 }
