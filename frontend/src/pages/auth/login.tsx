@@ -1,12 +1,16 @@
 import { useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/client';
-import { LoginQuery, LoginQueryVariables } from '@/graphql/generated/schema';
+import { useState } from 'react';
+import {
+  LoginQuery,
+  LoginQueryVariables,
+  InputLogin,
+} from '@/graphql/generated/schema';
 import { LOGIN } from '@/graphql/user/queries/auth.queries';
-import { InputLogin } from '@/types/graphql';
 
 function Login() {
   const router = useRouter();
-
+  const [errorMessage, setErrorMessage] = useState('');
   const [login] = useLazyQuery<LoginQuery, LoginQueryVariables>(LOGIN);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,6 +25,8 @@ function Login() {
         onCompleted(result) {
           if (result.login.success) {
             router.push('/');
+          } else {
+            setErrorMessage('wrong infos');
           }
         },
       });
@@ -38,8 +44,9 @@ function Login() {
         <div>
           <input type='password' name='password' placeholder='password' />
         </div>
-        <input className='bg-white' type='submit' />
+        <input className='bg-white' type='submit' data-testid='submit' />
       </form>
+      {errorMessage && <div>{errorMessage}</div>}
     </main>
   );
 }

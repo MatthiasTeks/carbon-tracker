@@ -1,6 +1,6 @@
 import { ASTNode, graphql, GraphQLSchema, print } from 'graphql';
 import { Maybe } from 'type-graphql';
-import db from './src/db';
+import { db } from './src/db';
 import getSchema from './src/schema';
 
 async function clearDB() {
