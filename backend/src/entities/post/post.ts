@@ -4,16 +4,14 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToOne,
   PrimaryGeneratedColumn,
-  Timestamp,
   JoinTable,
   UpdateDateColumn,
   CreateDateColumn,
   ManyToOne,
+  ManyToMany,
 } from 'typeorm';
 
-import Like from '../like/like';
 import User from '../user/user';
 
 @Entity()
@@ -25,11 +23,11 @@ export default class Post extends BaseEntity {
 
   @CreateDateColumn()
   @Field()
-  createdAt: Timestamp;
+  createdAt: Date;
 
   @UpdateDateColumn()
   @Field()
-  updatedAt: Timestamp;
+  updatedAt: Date;
 
   @Column()
   @Field()
@@ -41,13 +39,17 @@ export default class Post extends BaseEntity {
 
   @Column({ nullable: true })
   @Field()
-  viewOnPost: boolean | null;
+  viewOnPost?: number;
 
+  @ManyToMany(() => User, (user) => user.likedPosts)
   @JoinTable()
-  @OneToOne(() => Like, (l) => l.post, { cascade: true })
-  @Field(() => [Like])
-  likesOnPost: Like[];
+  @Field(() => [User])
+  likers: User[];
 
-  @ManyToOne(() => User, (user) => user.posts)
+  @Field(() => [User])
+  @ManyToOne(() => User, (user) => user.posts, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   user: User;
 }

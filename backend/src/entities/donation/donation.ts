@@ -6,7 +6,6 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Timestamp,
 } from 'typeorm';
 import User from '../user/user';
 
@@ -19,12 +18,13 @@ export default class Donation extends BaseEntity {
 
   @CreateDateColumn()
   @Field()
-  createdAt: Timestamp;
+  createdAt: Date;
 
   @Column()
   @Field()
   amount: number;
 
+  @Field(() => [User])
   @ManyToOne(() => User, (user) => user.donations)
   user: User;
 }

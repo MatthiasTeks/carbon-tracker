@@ -9,6 +9,7 @@ import UserWithoutPassword from '../../entities/user/user-without-password';
 import Message from '../../entities/user/message';
 import InputLogin from '../../entities/user/input-login';
 import { MyContext } from '../..';
+import UserService from '../../services/user-service';
 
 @Resolver(User)
 export default class UserResolver {
@@ -21,18 +22,12 @@ export default class UserResolver {
 
   @Query(() => User, { nullable: true })
   async userByEmail(@Arg('email') email: string) {
-    const userRepository = db.getRepository(User);
-    return userRepository.findOne({
-      where: { email },
-    });
+    return UserService.readByMail(email);
   }
 
   @Query(() => Message)
   async login(@Arg('infos') infos: InputLogin, @Ctx() ctx: MyContext) {
-    const userRepository = db.getRepository(User);
-    const user = await userRepository.findOne({
-      where: { email: infos.email },
-    });
+    const user = await UserService.readByMail(infos.email);
 
     if (!user) {
       throw new Error('Verify your informations');
@@ -73,21 +68,16 @@ export default class UserResolver {
 
   @Mutation(() => UserWithoutPassword)
   async register(@Arg('infos') infos: InputRegister) {
-    const userRepository = db.getRepository(User);
-    const existingUser = await userRepository.findOne({
-      where: { email: infos.email },
-    });
+    const existingUser = await UserService.readByMail(infos.email);
 
     if (existingUser) {
       throw new Error('User with this mail already exist');
     }
 
-    const newUser = userRepository.create({
+    const newUser = await UserService.create({
       email: infos.email,
       password: infos.password,
     });
-
-    await userRepository.save(newUser);
 
     return newUser;
   }

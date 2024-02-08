@@ -4,7 +4,13 @@ import { Length } from 'class-validator';
 import User from './user';
 
 @ObjectType()
-export default class UserWithoutPassword implements Omit<User, 'password'> {
+export default class UserWithoutPassword
+  implements
+    Omit<
+      User,
+      'password' | 'donations' | 'activityEntries' | 'posts' | 'likedPosts'
+    >
+{
   @Field()
   id: string;
 

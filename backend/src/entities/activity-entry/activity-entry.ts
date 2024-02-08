@@ -6,7 +6,6 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Timestamp,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -22,23 +21,31 @@ export default class ActivityEntry extends BaseEntity {
 
   @CreateDateColumn()
   @Field()
-  createdAt: Timestamp;
+  createdAt: Date;
 
   @UpdateDateColumn()
   @Field()
-  updatedAt: Timestamp;
+  updatedAt: Date;
 
   @Column({ nullable: true, type: 'text' })
   @Field()
-  name: string | null;
+  name?: string;
 
   @Column({ nullable: true, type: 'text' })
   @Field()
-  input: string | null;
+  input?: string;
 
-  @ManyToOne(() => User, (user) => user.activityEntries)
+  @Field(() => User)
+  @ManyToOne(() => User, (user) => user.activityEntries, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   user: User;
 
-  @ManyToOne(() => Category, (cat) => cat.activityEntries)
+  @Field(() => Category)
+  @ManyToOne(() => Category, (cat) => cat.activityEntries, {
+    nullable: false,
+    onDelete: 'CASCADE',
+  })
   category: Category;
 }
