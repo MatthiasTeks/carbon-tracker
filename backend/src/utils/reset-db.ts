@@ -1,4 +1,5 @@
 import db from '../db';
+import CategoryService from '../services/category-service';
 import UserService from '../services/user-service';
 
 export default async function resetDB() {
@@ -25,6 +26,19 @@ async function main() {
   await UserService.create({
     email: 'carbon-tracker@support.fr',
     password: 'carbonpassword',
+  });
+
+  await CategoryService.create({
+    name: 'Transport',
+  });
+  await CategoryService.create({
+    name: 'Alimentation',
+  });
+  await CategoryService.create({
+    name: 'Energie',
+  });
+  await CategoryService.create({
+    name: 'Habillement',
   });
 
   await db.destroy();
