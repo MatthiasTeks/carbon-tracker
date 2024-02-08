@@ -1,7 +1,0 @@
-query GetBooks {
-  tags {
-    author
-    id
-    title
-  }
-}
