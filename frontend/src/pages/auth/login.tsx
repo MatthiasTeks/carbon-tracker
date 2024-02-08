@@ -38,7 +38,8 @@ function Login() {
         <div>
           <input type='password' name='password' placeholder='password' />
         </div>
-        <input className='bg-white' type='submit' />
+        <input className='bg-white' type='submit' data-testid='submit' />
+        <input className='bg-white' type='submit' data-testid='submit' />
       </form>
     </main>
   );

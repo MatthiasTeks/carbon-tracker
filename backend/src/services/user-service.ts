@@ -1,4 +1,4 @@
-import db from '../db';
+import { db } from '../db';
 import InputRegister from '../entities/user/input-register';
 import User from '../entities/user/user';
 
