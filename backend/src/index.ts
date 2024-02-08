@@ -15,6 +15,7 @@ import User from './entities/user/user';
 import customAuthChecker from './lib/auth-checker';
 import UserService from './services/user-service';
 import CategoryResolver from './resolvers/category/category-resolvers';
+import ActivityEntryResolver from './resolvers/activity-entry/activity-entry-resolvers';
 
 export interface MyContext {
   req: express.Request;
@@ -31,7 +32,12 @@ const httpServer = http.createServer(app);
 
 async function main() {
   const schema = await buildSchema({
-    resolvers: [BookResolver, UserResolver, CategoryResolver],
+    resolvers: [
+      BookResolver,
+      UserResolver,
+      CategoryResolver,
+      ActivityEntryResolver,
+    ],
     validate: false,
     authChecker: customAuthChecker,
   });
