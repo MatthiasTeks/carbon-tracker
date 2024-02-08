@@ -69,6 +69,7 @@ async function main() {
       },
     }),
   );
+
   await db.initialize();
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: 4001 }, resolve),

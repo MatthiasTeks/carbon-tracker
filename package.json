@@ -10,7 +10,8 @@
     "prod": "docker compose -f docker-compose.production.yml up --build",
     "precommit": "lint-staged",
     "husky-install": "husky install",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "testDB": "docker compose -f docker-compose.integration-tests.yml up testDB"
   },
   "lint-staged": {
     "frontend/src/**/*.{js,jsx,ts,tsx}": [
@@ -30,13 +31,5 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.4"
-  },
-  "dependencies": {
-    "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.2.1",
-    "@types/jest": "^29.5.12",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "ts-node": "^10.9.2"
   }
 }
