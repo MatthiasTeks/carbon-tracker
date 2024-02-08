@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Books resolver can get a list of books 1`] = `
+{
+  "data": {
+    "tags": [
+      {
+        "author": "author2",
+        "id": 2,
+        "title": "title2",
+      },
+      {
+        "author": "author1",
+        "id": 1,
+        "title": "title1",
+      },
+    ],
+  },
+}
+`;
