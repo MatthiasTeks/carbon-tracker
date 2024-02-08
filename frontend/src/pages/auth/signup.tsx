@@ -6,13 +6,13 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [registerMutation] = useRegisterMutation();
+  const [register] = useRegisterMutation();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const result = await registerMutation({
+      const result = await register({
         variables: {
           infos: {
             email,
