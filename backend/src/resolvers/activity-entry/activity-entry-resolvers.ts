@@ -9,14 +9,18 @@ export default class ActivityEntryResolver {
   @Query(() => [ActivityEntry])
   async activityEntries(
     @Arg('categoryId', () => Int, { nullable: true }) categoryId?: number,
+    @Arg('userId', () => Int, { nullable: true }) userId?: string,
     @Arg('name', { nullable: true }) name?: string,
   ) {
     return ActivityEntry.find({
-      relations: { category: true },
+      relations: { category: true, user: true },
       where: {
         name: name ? Like(`%${name}%`) : undefined,
         category: {
           id: categoryId,
+        },
+        user: {
+          id: userId,
         },
       },
     });
