@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "echo '----- Checking Frontend...' && npx prettier --debug-check . && eslint --ext .tsx,.ts . && echo '----- Done!'",
     "preview": "vite preview",
-    "codegen": "graphql-codegen --config codegen.yml --watch",
+    "codegen": "graphql-codegen --watch",
     "test": "jest --watch"
   },
   "dependencies": {
