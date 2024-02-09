@@ -8,7 +8,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { buildSchema } from 'type-graphql';
 import { jwtVerify } from 'jose';
-import db from './db';
+import { db } from './db';
 import BookResolver from './resolvers/bookResolver';
 import UserResolver from './resolvers/user/user-resolver';
 import User from './entities/user/user';

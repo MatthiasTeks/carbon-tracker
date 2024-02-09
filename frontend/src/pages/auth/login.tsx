@@ -1,52 +1,35 @@
+import { useRouter } from 'next/router';
+import { useLazyQuery } from '@apollo/client';
 import { useState } from 'react';
-import { useLoginQuery, useLogoutQuery } from '@/graphql/generated/schema';
+import {
+  LoginQuery,
+  LoginQueryVariables,
+  InputLogin,
+} from '@/graphql/generated/schema';
+import { LOGIN } from '@/graphql/user/queries/auth.queries';
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const router = useRouter();
   const [errorMessage, setErrorMessage] = useState('');
+  const [login] = useLazyQuery<LoginQuery, LoginQueryVariables>(LOGIN);
 
-  const { data: loginData } = useLoginQuery({
-    variables: {
-      infos: {
-        email,
-        password,
-      },
-    },
-  });
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const result = await loginData;
-      if (result) {
-        if (result.login?.success) {
-          console.info('success');
-        } else {
-          console.info('verify information');
-        }
-      } else {
-        console.info('error happening');
-      }
-    } catch (err) {
-      console.error(err);
-      setErrorMessage('error happening');
-    }
-  };
-
-  const { data: logoutData } = useLogoutQuery();
-
-  const handleLogout = async () => {
-    try {
-      const logoutResult = await logoutData;
-      if (logoutResult) {
-        console.info('deconnexion successful');
-      } else {
-        console.info('error happening');
-      }
-    } catch (err) {
-      console.error(err);
-      setErrorMessage('error happening');
+    const form = new FormData(e.currentTarget);
+    const formData = Object.fromEntries(form) as InputLogin;
+    if (formData.email && formData.password) {
+      login({
+        variables: {
+          infos: { email: formData.email, password: formData.password },
+        },
+        onCompleted(result) {
+          if (result.login.success) {
+            router.push('/');
+          } else {
+            setErrorMessage('wrong infos');
+          }
+        },
+      });
     }
   };
 
@@ -56,29 +39,14 @@ function Login() {
     >
       <form onSubmit={handleSubmit}>
         <div>
-          <input
-            type='text'
-            name='email'
-            placeholder='mail'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <input type='text' name='email' placeholder='mail' />
         </div>
         <div>
-          <input
-            type='password'
-            name='password'
-            placeholder='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <input type='password' name='password' placeholder='password' />
         </div>
-        <input className='bg-white' type='submit' />
+        <input className='bg-white' type='submit' data-testid='submit' />
       </form>
-      <button className='bg-white' onClick={handleLogout}>
-        test logout
-      </button>
-      {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
+      {errorMessage && <div>{errorMessage}</div>}
     </main>
   );
 }

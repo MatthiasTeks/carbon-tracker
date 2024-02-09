@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,4 +32,19 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.poppins-light {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
+}
+
+.poppins-regular {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+}
+
+.poppins-bold {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
 }

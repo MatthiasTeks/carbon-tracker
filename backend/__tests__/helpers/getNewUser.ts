@@ -1,5 +1,5 @@
 import User from '../../src/entities/user/user';
-import db from '../../src/db';
+import { db } from '../../src/db';
 
 export default async function getNewUser() {
   const userRepository = db.getRepository(User);

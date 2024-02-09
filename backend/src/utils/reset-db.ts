@@ -1,4 +1,4 @@
-import db from '../db';
+import { db } from '../db';
 import ActivityEntryService from '../services/activity-entry-service';
 import CategoryService from '../services/category-service';
 import UserService from '../services/user-service';
