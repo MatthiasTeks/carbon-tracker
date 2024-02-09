@@ -45,7 +45,7 @@ export default class ActivityEntryResolver {
       where: { id },
       relations: { category: true, user: true },
     });
-    if (!activityEntry) throw new GraphQLError('Not found');
+    if (!activityEntry) throw new GraphQLError('This activity does not exist.');
     return activityEntry;
   }
 
@@ -56,17 +56,14 @@ export default class ActivityEntryResolver {
     @Arg('data', { validate: true }) data: InputCreate,
   ) {
     const newActivityEntry = new ActivityEntry();
-
     if (!ctx.user) {
-      throw new Error('User not authenticated');
+      throw new Error('You must be authenticated to create an activity.');
     }
-
     Object.assign(newActivityEntry, data);
     newActivityEntry.user = ctx.user;
-
     const errors = await validate(newActivityEntry);
     if (errors.length !== 0)
-      throw new GraphQLError('invalid data', { extensions: { errors } });
+      throw new GraphQLError('Invalid data', { extensions: { errors } });
     const { id } = await newActivityEntry.save();
     return ActivityEntry.findOne({
       where: { id },
@@ -81,25 +78,22 @@ export default class ActivityEntryResolver {
     @Arg('activityEntryId') id: number,
     @Arg('data', { validate: true }) data: InputUpdate,
   ) {
-    const activityEntryToUpdate = await ActivityEntry.findOneBy({ id });
-
+    const activityEntryToUpdate = await ActivityEntry.findOne({
+      where: { id },
+      relations: { user: true },
+    });
     if (!activityEntryToUpdate)
-      throw new GraphQLError('Activity entry not found');
-
+      throw new GraphQLError('This activity does not exist.');
     if (!ctx.user) {
-      throw new Error('User not authenticated');
+      throw new Error('You must be authenticated to create an activity.');
     }
-
     if (activityEntryToUpdate.user.id !== ctx.user.id) {
-      throw new Error('User not authorized to update this activity entry');
+      throw new Error('You are not authorized to update this activity.');
     }
-
     Object.assign(activityEntryToUpdate, data);
-
     const errors = await validate(activityEntryToUpdate);
     if (errors.length !== 0)
-      throw new GraphQLError('invalid data', { extensions: { errors } });
-
+      throw new GraphQLError('Invalid data', { extensions: { errors } });
     await activityEntryToUpdate.save();
     return ActivityEntry.findOne({
       where: { id },
@@ -115,19 +109,17 @@ export default class ActivityEntryResolver {
   ) {
     const activityEntryToDelete = await ActivityEntry.findOne({
       where: { id },
+      relations: { user: true },
     });
     if (!activityEntryToDelete)
-      throw new GraphQLError('Activity entry not found');
-
+      throw new GraphQLError('This activity does not exist.');
     if (!ctx.user) {
-      throw new Error('User not authenticated');
+      throw new Error('You must be authenticated to create an activity.');
     }
-
     if (activityEntryToDelete.user.id !== ctx.user.id) {
-      throw new Error('User not authorized to delete this activity entry');
+      throw new Error('You are not authorized to delete this activity.');
     }
-
     await activityEntryToDelete.remove();
-    return 'Deleted';
+    return 'Activity entry deleted';
   }
 }

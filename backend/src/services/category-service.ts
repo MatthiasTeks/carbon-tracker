@@ -1,4 +1,4 @@
-import db from '../db';
+import { db } from '../db';
 import Category from '../entities/category/category';
 
 export default class CategoryService {

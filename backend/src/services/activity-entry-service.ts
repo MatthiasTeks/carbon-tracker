@@ -1,4 +1,4 @@
-import db from '../db';
+import { db } from '../db';
 import ActivityEntry from '../entities/activity-entry/activity-entry';
 import Category from '../entities/category/category';
 import User from '../entities/user/user';
