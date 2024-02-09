@@ -1,15 +1,55 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { useRegisterMutation } from '@/graphql/generated/schema';
+import AuthLayout from '@/components/auth/layout';
+import Typography from '@/components/commons/typography/Typography';
+import InputLabel from '@/components/commons/inputs/InputLabel';
+import InputCheckbox from '@/components/commons/inputs/InputCheckbox';
+import Button from '@/components/commons/buttons/Button';
+import { useAlert } from '@/contexts/AlertContext';
 
-function Signup() {
+export default function Signup() {
+  const router = useRouter();
+  const { showAlert } = useAlert();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const [register] = useRegisterMutation();
+  const [register, { loading, error }] = useRegisterMutation();
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,}$/;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage('');
+
+    if (!acceptedTerms) {
+      setErrorMessage("Vous devez accepter les conditions d'utilisation.");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setErrorMessage("L'adresse e-mail n'est pas valide.");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setErrorMessage(
+        'Le mot de passe doit contenir au moins huit caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.',
+      );
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage('Les mots de passe ne correspondent pas.');
+      return;
+    }
 
     try {
       const result = await register({
@@ -22,44 +62,93 @@ function Signup() {
       });
 
       if (result?.data?.register) {
-        console.info('success');
+        showAlert('Compte crée avec succès!', 'success');
+        router.push('/auth/login');
       } else {
-        console.info('something bad happened');
+        setErrorMessage('error happening');
       }
     } catch (err) {
       console.error(err);
-      setErrorMessage('error happening');
     }
   };
 
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between text-black p-24`}
-    >
-      <form onSubmit={handleSubmit}>
-        <div>
-          <input
-            type='text'
-            name='email'
-            placeholder='mail'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+    <AuthLayout>
+      <div className='flex flex-col py-6'>
+        <Typography customClass='text-5xl font-semibold'>
+          Inscription ✍️
+        </Typography>
+        <Typography customClass='text-lg font-light text-medium_green mt-2 w-5/6'>
+          Suis ton empreinte carbone, commence dès maintenant à renseigner tes
+          dernières activitées!
+        </Typography>
+        <form onSubmit={handleSubmit} className='py-4 w-1/2'>
+          <div>
+            <InputLabel
+              name='email'
+              label='email'
+              placeholder='carbon@gmail.com'
+              type='email'
+              sizes='xl'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete='email'
+              required
+            />
+          </div>
+          <div className='mt-3'>
+            <InputLabel
+              name='password'
+              label='mot de passe'
+              placeholder='*******'
+              type='password'
+              sizes='xl'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete='new-password'
+              required
+            />
+          </div>
+          <div className='mt-3'>
+            <InputLabel
+              name='confirmPassword'
+              label='confirmer le mot de passe'
+              placeholder='*******'
+              type='password'
+              sizes='lg'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              autoComplete='new-password'
+              required
+            />
+          </div>
+          <InputCheckbox
+            id='remember-login'
+            label="j'accepte les conditions d'utilisation"
+            className='py-4'
+            checked={acceptedTerms}
+            onChange={(e) => setAcceptedTerms(e.target.checked)}
+            required
           />
+          <Button className='mt-2' size='xl' type='submit'>
+            {loading ? 'En cours...' : 'Envoyer'}
+          </Button>
+          <Typography variant='paragraph' className='text-red-500 mt-2'>
+            {errorMessage || error?.message}
+          </Typography>
+        </form>
+        <div className='flex items-center mt-2'>
+          <Typography variant='paragraph' className='cursor-default'>
+            Pas encore inscris ?
+          </Typography>
+          <Typography
+            variant='paragraph'
+            className='font-semibold pl-2 cursor-pointer text-medium_green'
+          >
+            Crée ton compte
+          </Typography>
         </div>
-        <div>
-          <input
-            type='password'
-            name='password'
-            placeholder='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <input className='bg-white' type='submit' />
-      </form>
-      {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
-    </main>
+      </div>
+    </AuthLayout>
   );
 }
-
-export default Signup;

@@ -47,7 +47,7 @@ export default class UserResolver {
       m.message = 'Welcome!';
       m.success = true;
     } else {
-      m.message = 'Verify your information';
+      m.message = 'Vérifiez vos informations...';
       m.success = false;
     }
     return m;
@@ -71,7 +71,7 @@ export default class UserResolver {
     const existingUser = await UserService.readByMail(infos.email);
 
     if (existingUser) {
-      throw new Error('User with this mail already exist');
+      throw new Error('Cette adresse mail est déjà utilisée');
     }
 
     const newUser = await UserService.create({
