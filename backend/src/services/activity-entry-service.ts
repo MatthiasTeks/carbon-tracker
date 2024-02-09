@@ -6,7 +6,7 @@ import User from '../entities/user/user';
 export default class ActivityEntryService {
   static async create(infos: {
     name: string;
-    input: string;
+    input: number;
     category: Category;
     user: User;
   }): Promise<ActivityEntry> {
