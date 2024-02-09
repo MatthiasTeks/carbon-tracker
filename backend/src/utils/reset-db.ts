@@ -38,14 +38,14 @@ async function main() {
 
   await ActivityEntryService.create({
     name: 'Ma dépense carbone voiture',
-    input: 'blablabla',
+    input: '20',
     category: await category1,
     user: await user1,
   });
 
   await ActivityEntryService.create({
     name: 'Ma dépense carbone repas',
-    input: 'patatipatata',
+    input: '30',
     category: await category2,
     user: await user1,
   });
