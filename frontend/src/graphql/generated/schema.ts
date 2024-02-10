@@ -224,7 +224,7 @@ export type GetActivityEntryByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetActivityEntryByIdQuery = { __typename?: 'Query', getActivityEntryById: { __typename?: 'ActivityEntry', input: number, name: string, category: { __typename?: 'Category', id: number } } };
+export type GetActivityEntryByIdQuery = { __typename?: 'Query', getActivityEntryById: { __typename?: 'ActivityEntry', input: number, name: string, id: number, category: { __typename?: 'Category', id: number } } };
 
 export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -404,6 +404,7 @@ export const GetActivityEntryByIdDocument = gql`
     }
     input
     name
+    id
   }
 }
     `;

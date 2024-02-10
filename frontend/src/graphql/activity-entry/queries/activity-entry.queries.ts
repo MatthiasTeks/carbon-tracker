@@ -22,6 +22,7 @@ export const ACTIVITY_ENTRY_BY_ID = gql`
       }
       input
       name
+      id
     }
   }
 `;
