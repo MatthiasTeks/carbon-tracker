@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { DELETE_ACTIVITY_ENTRY } from '@/graphql/activity-entry/mutations/activity-entry.mutations';
 import {
@@ -13,13 +12,14 @@ import { ACTIVITY_ENTRY_BY_ID } from '@/graphql/activity-entry/queries/activity-
 
 export default function ActivityEntryDetails() {
   const router = useRouter();
+  const { activityEntryId } = router.query;
+
   const [deleteActivityEntry] = useMutation<
     DeleteActivityEntryMutation,
     DeleteActivityEntryMutationVariables
   >(DELETE_ACTIVITY_ENTRY);
-  const { activityEntryId } = router.query;
 
-  const { data, refetch } = useQuery<
+  const { data } = useQuery<
     GetActivityEntryByIdQuery,
     GetActivityEntryByIdQueryVariables
   >(ACTIVITY_ENTRY_BY_ID, {
@@ -30,11 +30,8 @@ export default function ActivityEntryDetails() {
     skip: typeof activityEntryId === 'undefined',
   });
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
   const activityEntry = data?.getActivityEntryById;
+
   return (
     <div className='p-24'>
       {typeof activityEntry === 'undefined' ? (

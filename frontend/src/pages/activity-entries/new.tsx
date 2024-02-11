@@ -31,10 +31,15 @@ export default function NewActivityEntry() {
     const formJSON: any = Object.fromEntries(formData.entries());
     formJSON.input = parseFloat(formJSON.input);
     formJSON.category = { id: parseInt(formJSON.category, 10) };
-    await createActivityEntry({
-      variables: { data: { ...formJSON } },
-    });
-    router.push(`/activity-entries/list`);
+
+    try {
+      await createActivityEntry({
+        variables: { data: { ...formJSON } },
+      });
+      router.push(`/activity-entries/list`);
+    } catch (error) {
+      console.error('Une erreur est survenue:', error);
+    }
   };
 
   return (
