@@ -34,7 +34,7 @@ export default function AlertProvider({ children }: AlertProviderProps) {
     setAlert({ message, type });
     setTimeout(() => {
       setAlert(null);
-    }, 20000);
+    }, 5000);
   };
 
   const getTitle = (type: 'success' | 'warn' | 'error') => {

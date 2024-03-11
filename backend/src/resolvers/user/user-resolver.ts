@@ -2,7 +2,7 @@ import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from 'type-graphql';
 import * as argon2 from 'argon2';
 import Cookies from 'cookies';
 import { SignJWT } from 'jose';
-import db from '../../db';
+import { db } from '../../db';
 import User from '../../entities/user/user';
 import InputRegister from '../../entities/user/input-register';
 import UserWithoutPassword from '../../entities/user/user-without-password';

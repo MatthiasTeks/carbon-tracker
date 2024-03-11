@@ -74,16 +74,16 @@ export default function Signup() {
 
   return (
     <AuthLayout>
-      <div className='flex flex-col py-6'>
-        <Typography customClass='text-5xl font-semibold'>
+      <div className='flex flex-col items-center lg:items-start py-6'>
+        <Typography customClass='text-4xl lg:text-3xl xl:text-5xl font-semibold'>
           Inscription ✍️
         </Typography>
-        <Typography customClass='text-lg font-light text-medium_green mt-2 w-5/6'>
+        <Typography customClass='hidden lg:block lg:text-start text-sm lg:text-md xl:text-lg font-light text-medium_green mt-2 w-5/6'>
           Suis ton empreinte carbone, commence dès maintenant à renseigner tes
-          dernières activitées!
+          dernières activités !
         </Typography>
-        <form onSubmit={handleSubmit} className='py-4 w-1/2'>
-          <div>
+        <form onSubmit={handleSubmit} className='py-4'>
+          <div className='w-[300px]'>
             <InputLabel
               name='email'
               label='email'
@@ -96,7 +96,7 @@ export default function Signup() {
               required
             />
           </div>
-          <div className='mt-3'>
+          <div className='mt-3 w-[300px]'>
             <InputLabel
               name='password'
               label='mot de passe'
@@ -109,7 +109,7 @@ export default function Signup() {
               required
             />
           </div>
-          <div className='mt-3'>
+          <div className='mt-3 w-[300px]'>
             <InputLabel
               name='confirmPassword'
               label='confirmer le mot de passe'
@@ -130,16 +130,21 @@ export default function Signup() {
             onChange={(e) => setAcceptedTerms(e.target.checked)}
             required
           />
-          <Button className='mt-2' size='xl' type='submit'>
-            {loading ? 'En cours...' : 'Envoyer'}
-          </Button>
+          <div className='w-full flex justify-center items-center lg:justify-start'>
+            <Button className='mt-2' size='xl' type='submit'>
+              {loading ? 'En cours...' : 'Envoyer'}
+            </Button>
+          </div>
           <Typography variant='paragraph' className='text-red-500 mt-2'>
             {errorMessage || error?.message}
           </Typography>
         </form>
-        <div className='flex items-center mt-2'>
+        <div
+          className='flex items-center'
+          onClick={() => router.push('/auth/login')}
+        >
           <Typography variant='paragraph' className='cursor-default'>
-            Pas encore inscris ?
+            Pas encore inscrit ?
           </Typography>
           <Typography
             variant='paragraph'

@@ -1,4 +1,4 @@
-import db from '../db';
+import { db } from '../db';
 import UserService from '../services/user-service';
 
 export default async function resetDB() {
