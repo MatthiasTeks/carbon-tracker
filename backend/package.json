@@ -11,7 +11,7 @@
     "lint": "echo '----- Checking Backend...' && npx prettier --debug-check . && eslint --ext .ts . && echo '----- Done!'",
     "fix": "prettier --write . && eslint --fix --ext .ts .",
     "test": "jest",
-    "testDB:wait": "docker compose -f docker-compose.integration-tests.yml up testDB"
+    "testDB:wait": "docker compose -f docker-compose.integration-tests.yml up testDB --wait"
   },
   "author": "",
   "license": "ISC",
