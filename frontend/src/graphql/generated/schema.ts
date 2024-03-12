@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -52,7 +58,6 @@ export type Mutation = {
   register: UserWithoutPassword;
 };
 
-
 export type MutationRegisterArgs = {
   infos: InputRegister;
 };
@@ -78,16 +83,13 @@ export type Query = {
   users: Array<User>;
 };
 
-
 export type QueryLoginArgs = {
   infos: InputLogin;
 };
 
-
 export type QueryTagsArgs = {
   title?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryUserByEmailArgs = {
   email: Scalars['String'];
@@ -118,40 +120,52 @@ export type UserWithoutPassword = {
   updatedAt: Scalars['DateTimeISO'];
 };
 
-export type GetBooksQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetBooksQueryVariables = Exact<{ [key: string]: never }>;
 
-
-export type GetBooksQuery = { __typename?: 'Query', tags: Array<{ __typename?: 'Book', author: string, id: number, title: string }> };
+export type GetBooksQuery = {
+  __typename?: 'Query';
+  tags: Array<{
+    __typename?: 'Book';
+    author: string;
+    id: number;
+    title: string;
+  }>;
+};
 
 export type RegisterMutationVariables = Exact<{
   infos: InputRegister;
 }>;
 
-
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserWithoutPassword', id: string, email: string } };
+export type RegisterMutation = {
+  __typename?: 'Mutation';
+  register: { __typename?: 'UserWithoutPassword'; id: string; email: string };
+};
 
 export type LoginQueryVariables = Exact<{
   infos: InputLogin;
 }>;
 
+export type LoginQuery = {
+  __typename?: 'Query';
+  login: { __typename?: 'Message'; success: boolean; message: string };
+};
 
-export type LoginQuery = { __typename?: 'Query', login: { __typename?: 'Message', success: boolean, message: string } };
+export type LogoutQueryVariables = Exact<{ [key: string]: never }>;
 
-export type LogoutQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type LogoutQuery = { __typename?: 'Query', logout: { __typename?: 'Message', message: string, success: boolean } };
-
+export type LogoutQuery = {
+  __typename?: 'Query';
+  logout: { __typename?: 'Message'; message: string; success: boolean };
+};
 
 export const GetBooksDocument = gql`
-    query GetBooks {
-  tags {
-    author
-    id
-    title
+  query GetBooks {
+    tags {
+      author
+      id
+      title
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetBooksQuery__
@@ -168,26 +182,47 @@ export const GetBooksDocument = gql`
  *   },
  * });
  */
-export function useGetBooksQuery(baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options);
-      }
-export function useGetBooksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetBooksQuery, GetBooksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetBooksQuery, GetBooksQueryVariables>(GetBooksDocument, options);
-        }
-export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>;
-export type GetBooksLazyQueryHookResult = ReturnType<typeof useGetBooksLazyQuery>;
-export type GetBooksQueryResult = Apollo.QueryResult<GetBooksQuery, GetBooksQueryVariables>;
-export const RegisterDocument = gql`
-    mutation Register($infos: InputRegister!) {
-  register(infos: $infos) {
-    id
-    email
-  }
+export function useGetBooksQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetBooksQuery, GetBooksQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetBooksQuery, GetBooksQueryVariables>(
+    GetBooksDocument,
+    options,
+  );
 }
-    `;
-export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, RegisterMutationVariables>;
+export function useGetBooksLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetBooksQuery,
+    GetBooksQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetBooksQuery, GetBooksQueryVariables>(
+    GetBooksDocument,
+    options,
+  );
+}
+export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>;
+export type GetBooksLazyQueryHookResult = ReturnType<
+  typeof useGetBooksLazyQuery
+>;
+export type GetBooksQueryResult = Apollo.QueryResult<
+  GetBooksQuery,
+  GetBooksQueryVariables
+>;
+export const RegisterDocument = gql`
+  mutation Register($infos: InputRegister!) {
+    register(infos: $infos) {
+      id
+      email
+    }
+  }
+`;
+export type RegisterMutationFn = Apollo.MutationFunction<
+  RegisterMutation,
+  RegisterMutationVariables
+>;
 
 /**
  * __useRegisterMutation__
@@ -206,21 +241,32 @@ export type RegisterMutationFn = Apollo.MutationFunction<RegisterMutation, Regis
  *   },
  * });
  */
-export function useRegisterMutation(baseOptions?: Apollo.MutationHookOptions<RegisterMutation, RegisterMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
-      }
+export function useRegisterMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RegisterMutation,
+    RegisterMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RegisterMutation, RegisterMutationVariables>(
+    RegisterDocument,
+    options,
+  );
+}
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
 export type RegisterMutationResult = Apollo.MutationResult<RegisterMutation>;
-export type RegisterMutationOptions = Apollo.BaseMutationOptions<RegisterMutation, RegisterMutationVariables>;
+export type RegisterMutationOptions = Apollo.BaseMutationOptions<
+  RegisterMutation,
+  RegisterMutationVariables
+>;
 export const LoginDocument = gql`
-    query Login($infos: InputLogin!) {
-  login(infos: $infos) {
-    success
-    message
+  query Login($infos: InputLogin!) {
+    login(infos: $infos) {
+      success
+      message
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useLoginQuery__
@@ -238,25 +284,38 @@ export const LoginDocument = gql`
  *   },
  * });
  */
-export function useLoginQuery(baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
-      }
-export function useLoginLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(LoginDocument, options);
-        }
+export function useLoginQuery(
+  baseOptions: Apollo.QueryHookOptions<LoginQuery, LoginQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<LoginQuery, LoginQueryVariables>(
+    LoginDocument,
+    options,
+  );
+}
+export function useLoginLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<LoginQuery, LoginQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<LoginQuery, LoginQueryVariables>(
+    LoginDocument,
+    options,
+  );
+}
 export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
 export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
-export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
+export type LoginQueryResult = Apollo.QueryResult<
+  LoginQuery,
+  LoginQueryVariables
+>;
 export const LogoutDocument = gql`
-    query Logout {
-  logout {
-    message
-    success
+  query Logout {
+    logout {
+      message
+      success
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useLogoutQuery__
@@ -273,14 +332,27 @@ export const LogoutDocument = gql`
  *   },
  * });
  */
-export function useLogoutQuery(baseOptions?: Apollo.QueryHookOptions<LogoutQuery, LogoutQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<LogoutQuery, LogoutQueryVariables>(LogoutDocument, options);
-      }
-export function useLogoutLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LogoutQuery, LogoutQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<LogoutQuery, LogoutQueryVariables>(LogoutDocument, options);
-        }
+export function useLogoutQuery(
+  baseOptions?: Apollo.QueryHookOptions<LogoutQuery, LogoutQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<LogoutQuery, LogoutQueryVariables>(
+    LogoutDocument,
+    options,
+  );
+}
+export function useLogoutLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<LogoutQuery, LogoutQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<LogoutQuery, LogoutQueryVariables>(
+    LogoutDocument,
+    options,
+  );
+}
 export type LogoutQueryHookResult = ReturnType<typeof useLogoutQuery>;
 export type LogoutLazyQueryHookResult = ReturnType<typeof useLogoutLazyQuery>;
-export type LogoutQueryResult = Apollo.QueryResult<LogoutQuery, LogoutQueryVariables>;
+export type LogoutQueryResult = Apollo.QueryResult<
+  LogoutQuery,
+  LogoutQueryVariables
+>;
