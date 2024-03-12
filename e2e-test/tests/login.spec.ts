@@ -23,8 +23,8 @@ async function createUser() {
 
 test('can connect with correct credentials', async ({ page }) => {
   await page.goto('http://localhost:3000/auth/login');
-  await page.getByPlaceholder('mail').fill(email);
-  await page.getByPlaceholder('password').fill(password);
+  await page.getByPlaceholder('carbone@gmail.com').fill(email);
+  await page.getByPlaceholder('*******').fill(password);
   await page.getByRole('main').click({
     button: 'left'
   });
@@ -34,11 +34,11 @@ test('can connect with correct credentials', async ({ page }) => {
 
 test('cannot connect with WRONG credentials', async ({ page }) => {
   await page.goto('http://localhost:3000/auth/login');
-  await page.getByPlaceholder('mail').fill(email);
-  await page.getByPlaceholder('password').fill('wrongPassword');
+  await page.getByPlaceholder('carbone@gmail.com').fill(email);
+  await page.getByPlaceholder('*******').fill('wrongPassword');
   await page.getByRole('main').click({
     button: 'left'
   });
   await page.getByTestId('submit').click();
-  await expect(page.getByText('wrong infos')).toBeVisible()
+  await expect(page.getByText('Vérifiez vos informations...')).toBeVisible()
 });

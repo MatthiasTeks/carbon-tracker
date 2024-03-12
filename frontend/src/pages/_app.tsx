@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { useMemo } from 'react';
+import AlertProvider from '@/contexts/AlertContext';
 
 export function App({ Component, pageProps }: AppProps) {
   const client = useMemo(
@@ -17,7 +18,9 @@ export function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={client}>
-      <Component {...pageProps} />
+      <AlertProvider>
+        <Component {...pageProps} />
+      </AlertProvider>
     </ApolloProvider>
   );
 }
