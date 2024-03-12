@@ -6,9 +6,13 @@
     "cli": "npm"
   },
   "scripts": {
+    "dev": "docker compose up --build",
+    "prod": "docker compose -f docker-compose.production.yml up --build",
     "precommit": "lint-staged",
     "husky-install": "husky install",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "testDB": "docker compose -f docker-compose.integration-tests.yml up testDB",
+    "e2e": "docker compose -f docker-compose.e2e-tests.yml up --build"
   },
   "lint-staged": {
     "frontend/src/**/*.{js,jsx,ts,tsx}": [

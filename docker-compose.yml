@@ -13,7 +13,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-
     build: backend
     ports:
       - 4001:4001
@@ -21,6 +20,15 @@ services:
       - ./backend/src:/app/src
     env_file:
       - ./global.env
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -f http://backend:4001/graphql?query=%7B__typename%7D -H 'Apollo-Require-Preflight: true' || exit 1",
+        ]
+      interval: 10s
+      timeout: 30s
+      retries: 5
 
   frontend:
     build: frontend
@@ -30,3 +38,12 @@ services:
       - ./frontend/src:/app/src 
     env_file:
       - ./global.env
+    depends_on:
+      backend:
+        condition: service_healthy
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
