@@ -66,6 +66,12 @@ export default function ActivityEntryDetails() {
             >
               Supprimer la dépense carbone
             </div>
+            <Link
+              href={`/activity-entries/list`}
+              className='flex items-center mt-3 cursor-pointer link link-primary'
+            >
+              Retour à la liste des dépenses
+            </Link>
           </div>
         </div>
       )}

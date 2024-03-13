@@ -31,7 +31,7 @@ export default class ActivityEntry extends BaseEntity {
   @Field()
   name?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: 0 })
   @Field()
   input?: number;
 

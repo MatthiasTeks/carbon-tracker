@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
 import { FormEvent } from 'react';
+import Link from 'next/link';
 import { UPDATE_ACTIVITY_ENTRY } from '@/graphql/activity-entry/mutations/activity-entry.mutations';
 import { ACTIVITY_ENTRY_BY_ID } from '@/graphql/activity-entry/queries/activity-entry.queries';
 import {
@@ -105,6 +106,12 @@ export default function UpdateActivityEntry() {
           </div>
         </form>
       )}
+      <Link
+        href={`/activity-entries/list`}
+        className='flex items-center mt-3 cursor-pointer link link-primary'
+      >
+        Retour à la liste des dépenses
+      </Link>
     </main>
   );
 }
