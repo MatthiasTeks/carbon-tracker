@@ -14,7 +14,7 @@ test.beforeEach(async () => {
 test.afterAll(closeDB);
 
 const email = 'user3@app.com';
-const password = 'mysuperpassword';
+const password = 'mySuperPassword1!';
 
 async function createUser() {
   const hashedPassword = await argon2.hash(password);
