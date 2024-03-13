@@ -49,5 +49,5 @@ jobs:
         if: failure()
         with:
           name: test-results
-          path: e2e-tests/test-results/
+          path: e2e-test/test-results/
           retention-days: 7
