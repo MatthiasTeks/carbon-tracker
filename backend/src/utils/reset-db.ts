@@ -19,7 +19,9 @@ export default async function resetDB() {
   await runner.query("SET session_replication_role = 'origin'");
   await db.synchronize();
 }
-
+// Pour executer resetDB :
+// docker exec -it {BackendContainerId} sh
+// npm run resetDB
 async function main() {
   await db.initialize();
   await resetDB();
@@ -34,6 +36,9 @@ async function main() {
   });
   const category2 = CategoryService.create({
     name: 'Alimentation',
+  });
+  const category3 = CategoryService.create({
+    name: 'Logement',
   });
 
   await ActivityEntryService.create({
@@ -50,6 +55,78 @@ async function main() {
     user: await user1,
   });
 
+  await ActivityEntryService.create({
+    name: 'Electricité mois de mars',
+    input: 55,
+    category: await category3,
+    user: await user1,
+  });
+  await ActivityEntryService.create({
+    name: 'Trajet Lyon Paris',
+    input: 23,
+    category: await category1,
+    user: await user1,
+  });
+
+  await ActivityEntryService.create({
+    name: 'Restaurant en famille',
+    input: 5,
+    category: await category2,
+    user: await user1,
+  });
+
+  await ActivityEntryService.create({
+    name: 'Electricité mois de février',
+    input: 55,
+    category: await category3,
+    user: await user1,
+  });
+  await ActivityEntryService.create({
+    name: 'Electricité mois de mars',
+    input: 55,
+    category: await category3,
+    user: await user1,
+  });
+  await ActivityEntryService.create({
+    name: 'Trajet Lyon Paris',
+    input: 23,
+    category: await category1,
+    user: await user1,
+  });
+
+  await ActivityEntryService.create({
+    name: 'Restaurant en famille',
+    input: 5,
+    category: await category2,
+    user: await user1,
+  });
+
+  await ActivityEntryService.create({
+    name: 'Electricité mois de février',
+    input: 55,
+    category: await category3,
+    user: await user1,
+  });
+  await ActivityEntryService.create({
+    name: 'Trajet Lyon Paris',
+    input: 23,
+    category: await category1,
+    user: await user1,
+  });
+
+  await ActivityEntryService.create({
+    name: 'Restaurant en famille',
+    input: 5,
+    category: await category2,
+    user: await user1,
+  });
+
+  await ActivityEntryService.create({
+    name: 'Electricité mois de février',
+    input: 55,
+    category: await category3,
+    user: await user1,
+  });
   await db.destroy();
   console.info('♻️ Database successfully reset!');
 }
